@@ -1,0 +1,5 @@
+{
+	"python.formatting.provider": "ruff",
+	"python.linting.ruffEnabled": true,
+	"pyright.testing.provider": "pytest",
+}
