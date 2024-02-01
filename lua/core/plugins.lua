@@ -16,12 +16,12 @@ local plugins = {
 	'tpope/vim-surround', -- Surrounding ysw)
 	'jiangmiao/auto-pairs', -- Adding pairs to symbols and tags
 	'nvim-tree/nvim-tree.lua', -- file navigator
+	'nvim-tree/nvim-web-devicons', -- Developer Icons
 	'tpope/vim-commentary', -- For Commenting gcc & gc
 	'vim-airline/vim-airline', -- Status bar
 	'ap/vim-css-color', -- CSS Color Preview
 	'rafi/awesome-vim-colorschemes', -- Retro Scheme
 	'neoclide/coc.nvim',  -- Auto Completion
-	'ryanoasis/vim-devicons', -- Developer Icons
 	'tc50cal/vim-terminal', -- Vim Terminal
 	'preservim/tagbar', -- Tagbar for code navigation
 	'mg979/vim-visual-multi', -- <C-Down> for multiple cursors
