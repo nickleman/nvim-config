@@ -33,6 +33,7 @@ vim.o.cursorline = true
 vim.o.cursorcolumn = true
 
 -- Set colorscheme
+vim.cmd.termguicolors = true
 -- vim.cmd [[colorscheme onedark]]
 vim.cmd.colorscheme "jellybeans"
 -- Change the SignColumn color though

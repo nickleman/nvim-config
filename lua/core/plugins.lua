@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
 	'tpope/vim-surround', -- Surrounding ysw)
 	'jiangmiao/auto-pairs', -- Adding pairs to symbols and tags
-	'preservim/nerdtree', -- NerdTree
+	'nvim-tree/nvim-tree.lua', -- file navigator
 	'tpope/vim-commentary', -- For Commenting gcc & gc
 	'vim-airline/vim-airline', -- Status bar
 	'ap/vim-css-color', -- CSS Color Preview
