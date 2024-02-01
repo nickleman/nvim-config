@@ -44,3 +44,7 @@ vim.api.nvim_set_hl(0, 'SignColumn', { link = 'LineNr' })
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+-- Clear search highlights on ' h'
+vim.keymap.set('n', '<Leader>h', ':nohlsearch<CR>')
+
