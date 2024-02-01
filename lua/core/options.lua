@@ -15,7 +15,6 @@ vim.o.softtabstop = 4
 -- Enable the mouse interactions
 vim.o.mouse = 'a'
 
-
 -- Enable auto completion menu after pressing TAB.
 vim.o.wildmenu = true
 

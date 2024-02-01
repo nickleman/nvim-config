@@ -28,6 +28,7 @@ local plugins = {
 	'neovim/nvim-lspconfig', -- LSP config package
 	'tpope/vim-fugitive', -- basic git integration
 	'lewis6991/gitsigns.nvim', -- git integration
+	'nvim-treesitter/nvim-treesitter',
 	{
 		'nvim-telescope/telescope.nvim', -- Alternate file browser
 		branch = '0.1.x',
