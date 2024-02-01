@@ -1,0 +1,5 @@
+require('plugins-config/airline')
+require('plugins-config/coc')
+require('plugins-config/gitsigns')
+require('plugins-config/nerdtree')
+require('plugins-config/ruff')

@@ -1,12 +1,12 @@
 require('gitsigns').setup {
-  signs = {
-    add          = { text = '+' },
-    change       = { text = '~' },
-    delete       = { text = '_' },
-    topdelete    = { text = '‾' },
-    changedelete = { text = '~' },
-    untracked    = { text = '┆' },
-  },
+  -- signs = {
+    -- add          = { text = '+' },
+    -- change       = { text = '~' },
+    -- delete       = { text = '_' },
+    -- topdelete    = { text = '‾' },
+    -- changedelete = { text = '~' },
+    -- untracked    = { text = '┆' },
+  -- },
   signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
   numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
   linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
@@ -79,5 +79,8 @@ require('gitsigns').setup {
 
     -- Text object
     map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+
+	-- Fix diff line color
+	vim.api.nvim_set_hl(0, 'GitSignsChange', { link = 'Function' })
   end
 }

@@ -1,9 +1,5 @@
-require('plugins.init')
+require('plugins')
 require('options')
-require('plugins.airline')
-require('plugins.nerdtree')
-require('plugins.gitsigns')
-require('plugins.coc')
-require('plugins.ruff')
+require('plugins-config')
 
 require('keymaps')

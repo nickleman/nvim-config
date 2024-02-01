@@ -35,6 +35,8 @@ vim.o.cursorcolumn = true
 -- Set colorscheme
 -- vim.cmd [[colorscheme onedark]]
 vim.cmd.colorscheme "jellybeans"
+-- Change the SignColumn color though
+vim.api.nvim_set_hl(0, 'SignColumn', { link = 'LineNr' })
 
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
