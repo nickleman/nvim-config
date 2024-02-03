@@ -21,13 +21,23 @@ local plugins = {
 	'vim-airline/vim-airline', -- Status bar
 	'ap/vim-css-color', -- CSS Color Preview
 	'rafi/awesome-vim-colorschemes', -- Retro Scheme
-	'neoclide/coc.nvim',  -- Auto Completion
 	'tc50cal/vim-terminal', -- Vim Terminal
 	'preservim/tagbar', -- Tagbar for code navigation
 	'mg979/vim-visual-multi', -- <C-Down> for multiple cursors
 	'neovim/nvim-lspconfig', -- LSP config package
 	'tpope/vim-fugitive', -- basic git integration
 	'lewis6991/gitsigns.nvim', -- git integration
+	-- Auto completion
+	'hrsh7th/nvim-cmp',
+	'hrsh7th/cmp-nvim-lsp',
+	'L3MON4D3/LuaSnip',
+	'saadparwaiz1/cmp_luasnip',
+	'rafamadriz/friendly-snippets',
+	-- LSP configuration and utilization
+	'williamboman/mason.nvim',
+	'williamboman/mason-lspconfig.nvim',
+	'neovim/nvim-lspconfig',
+
 	'nvim-treesitter/nvim-treesitter',
 	{
 		'nvim-telescope/telescope.nvim', -- Alternate file browser
