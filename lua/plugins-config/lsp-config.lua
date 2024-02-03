@@ -1,6 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls", "dockerls", "docker_compose_language_service", "jedi_language_server", } --"tailwindcss-language-server" }
+	ensure_installed = { "lua_ls", "dockerls", "docker_compose_language_service", "jedi_language_server", "tailwindcss" }
 })
 
 local on_attach = function(_, _)
