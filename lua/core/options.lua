@@ -34,7 +34,7 @@ vim.o.cursorcolumn = true
 -- Set colorscheme
 vim.cmd.termguicolors = true
 -- vim.cmd [[colorscheme onedark]]
-vim.cmd.colorscheme "jellybeans"
+-- vim.cmd.colorscheme "jellybeans"
 -- Change the SignColumn color though
 vim.api.nvim_set_hl(0, 'SignColumn', { link = 'LineNr' })
 
@@ -46,5 +46,4 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Clear search highlights on ' h'
-vim.keymap.set('n', '<Leader>h', ':nohlsearch<CR>')
-
+vim.keymap.set('n', '<Leader>sc', ':nohlsearch<CR>')

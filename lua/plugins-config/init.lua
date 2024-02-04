@@ -1,7 +1,0 @@
-require('plugins-config/airline')
-require('plugins-config/gitsigns')
-require('plugins-config/nvim-tree')
-require('plugins-config/treesitter')
-require('plugins-config/telescope')
-require('plugins-config/completions')
-require('plugins-config/lsp-config')
