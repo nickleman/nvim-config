@@ -77,6 +77,7 @@ return {
 			vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
 			vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, {})
 			vim.keymap.set('n', '<Leader>gr', require('telescope.builtin').lsp_references, {})
+			vim.keymap.set('n', '<Leader>cs', require('telescope.builtin').lsp_workspace_symbols, {})
 			vim.keymap.set('n', '<Leader>K', vim.lsp.buf.hover, {})
 		end,
 		vim.api.nvim_create_user_command("Format", function()
