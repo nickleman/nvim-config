@@ -2,7 +2,9 @@ return {
 	{
 		'williamboman/mason.nvim',
 		config = function()
-			require("mason").setup()
+			require("mason").setup({
+				PATH = "prepend", -- "skip" seems to cause spawning errors.
+			})
 		end
 	},
 	{
@@ -31,6 +33,14 @@ return {
 			local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 			local lspconfig = require("lspconfig")
+			on_attach = function()
+				-- Setup autoformat on save
+				vim.api.nvim_create_autocmd("BufWritePre", {
+					callback = function()
+						vim.lsp.buf.format()
+					end,
+				})
+			end
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
 				settings = {
@@ -40,12 +50,7 @@ return {
 						}
 					}
 				},
-				-- Setup autoformat on save
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					callback = function()
-						vim.lsp.buf.format()
-					end,
-				})
+				on_attach = on_attach,
 			})
 			lspconfig.dockerls.setup({
 				capabilities = capabilities,
@@ -64,12 +69,7 @@ return {
 			})
 			lspconfig.ruff_lsp.setup({
 				capabilities = capabilities,
-				-- Setup autoformat on save
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					callback = function()
-						vim.lsp.buf.format()
-					end,
-				})
+				on_attach = on_attach,
 			})
 			vim.keymap.set('n', 'rn', vim.lsp.buf.rename, {})
 			vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, {})

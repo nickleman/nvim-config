@@ -1,12 +1,12 @@
 -- Window splitting aliases
-vim.api.nvim_set_keymap("n", "<Leader>wh", "<C-w>s", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Leader>wv", "<C-w>v", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>sh", "<C-w>s", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>sv", "<C-w>v", { noremap = true })
 
 -- Navigation between windows
-vim.api.nvim_set_keymap("n", "<Leader>h", "<C-w>h", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Leader>j", "<C-w>j", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Leader>k", "<C-w>k", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Leader>l", "<C-w>l", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>wh", "<C-w>h", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>wj", "<C-w>j", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>wk", "<C-w>k", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>wl", "<C-w>l", { noremap = true })
 
 -- Resizing windows
 vim.api.nvim_set_keymap("n", "<A-h>", "<C-w><", { noremap = true })

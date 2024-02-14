@@ -1,3 +1,10 @@
+--  Set the default GUI font to my preference:
+-- if vim.fn.has("gui_running") then
+-- vim.opt.guifont = "FiraCode NF:h12:cANSI:qDRAFT"
+-- -- vim.opt.lines=35
+-- -- vim.opt.columns=110
+-- end
+
 -- Set highlight on search
 vim.o.hlsearch = true
 
