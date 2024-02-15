@@ -1,6 +1,5 @@
 return {
 	'tpope/vim-surround',         -- Surrounding ysw)
-	'jiangmiao/auto-pairs',       -- Adding pairs to symbols and tags
 	'tpope/vim-commentary',       -- For Commenting gcc & gc
 	'ap/vim-css-color',           -- CSS Color Preview
 	'rafi/awesome-vim-colorschemes', -- Retro Scheme
