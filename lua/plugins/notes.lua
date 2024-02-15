@@ -13,11 +13,14 @@ return {
 					config = {
 						default_workspace = "notes",
 						workspaces = {
-							notes = "c:\\Users\\210008146\\Documents\\Notes",
+							notes = "~/Documents/Notes",
 						},
 					},
 				},
 			},
 		}
+
+		-- Setup some keybindings
+		vim.keymap.set('n', '<Leader>nn', ':Neorg keybind all core.dirman.new.note<CR>')
 	end,
 }
