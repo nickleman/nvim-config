@@ -63,9 +63,20 @@ return {
 			})
 			lspconfig.tailwindcss.setup({
 				capabilities = capabilities,
+				settings = {
+					emmetCompletions = true
+				},
+				init_options = {
+					userLanguages = { jinja = "html" }
+				},
+				filetypes = { "html", "jinja" }
 			})
 			lspconfig.html.setup({
 				capabilities = capabilities,
+				init_options = {
+					userLanguages = { jinja = "html" }
+				},
+				filetypes = { "html", "jinja" }
 			})
 			lspconfig.ruff_lsp.setup({
 				capabilities = capabilities,
