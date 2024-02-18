@@ -23,6 +23,7 @@ return {
 					"tailwindcss",
 					"html",
 					"ruff_lsp",
+					"emmet_language_server",
 				}
 			})
 		end
@@ -69,18 +70,31 @@ return {
 				init_options = {
 					userLanguages = { jinja = "html" }
 				},
-				filetypes = { "html", "jinja" }
+				filetypes = { "html", "jinja", "htmldjango" }
 			})
 			lspconfig.html.setup({
 				capabilities = capabilities,
 				init_options = {
 					userLanguages = { jinja = "html" }
 				},
-				filetypes = { "html", "jinja" }
+				filetypes = { "html", "templ", "htmldjango", "jinja" }
 			})
 			lspconfig.ruff_lsp.setup({
 				capabilities = capabilities,
 				on_attach = on_attach,
+			})
+			lspconfig.emmet_language_server.setup({
+				capabilities = capabilities,
+				filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "jinja", "htmldjango" },
+				-- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
+				-- **Note:** only the options listed in the table are supported.
+				init_options = {
+					---@type table<string, string>
+					includeLanguages = {
+						jinja = "html",
+						htmldjango = "html"
+					},
+				},
 			})
 			vim.keymap.set('n', 'rn', vim.lsp.buf.rename, {})
 			vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, {})
