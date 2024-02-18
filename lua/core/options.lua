@@ -54,3 +54,7 @@ vim.g.maplocalleader = ' '
 
 -- Clear search highlights on ' h'
 vim.keymap.set('n', '<Leader>sc', ':nohlsearch<CR>')
+
+-- Have vim wrap on words not characters
+vim.wo.wrap = true
+vim.wo.linebreak = true
