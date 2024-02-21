@@ -3,6 +3,9 @@ return {
 	build = ":TSUpdate",
 	event = { "BufReadPre", "BufNewFile"},
 	config = function()
+        if vim.loop.os_uname().sysname == "Windows_NT" then
+            require('nvim-treesitter.install').compilers = { "clang" }
+        end
 		require('nvim-treesitter.configs').setup {
 			-- A list of parser names, or "all"
 			ensure_installed = { "c", "lua", "rust", "vim", "html", "css",
