@@ -24,6 +24,7 @@ return {
 					"html",
 					"ruff_lsp",
 					"emmet_language_server",
+					"clangd",
 				}
 			})
 		end
@@ -52,6 +53,9 @@ return {
 					}
 				},
 				on_attach = on_attach,
+			})
+			lspconfig.clangd.setup({
+				capabilities = capabilities,
 			})
 			lspconfig.dockerls.setup({
 				capabilities = capabilities,
