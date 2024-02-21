@@ -15,6 +15,7 @@ return {
 		},
 		config = function()
 			require("mason-lspconfig").setup({
+				PATH = "prepend", -- "skip" seems to cause spawning errors.
 				ensure_installed = {
 					"lua_ls",
 					"dockerls",
