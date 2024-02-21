@@ -1,15 +1,12 @@
 return {
 	'nvim-treesitter/nvim-treesitter',
 	build = ":TSUpdate",
-	event = { "BufReadPre", "BufNewFile"},
+	event = { "BufReadPre", "BufNewFile" },
 	config = function()
-        if vim.loop.os_uname().sysname == "Windows_NT" then
-            require('nvim-treesitter.install').compilers = { "clang" }
-        end
+		if vim.loop.os_uname().sysname == "Windows_NT" then
+			require('nvim-treesitter.install').compilers = { "clang" }
+		end
 		require('nvim-treesitter.configs').setup {
-            if vim.loop.os_uname().sysname == "Windows_NT" then
-                require('nvim-treesitter.install').compilers = { "clang" }
-            end
 			-- A list of parser names, or "all"
 			ensure_installed = { "c", "lua", "rust", "vim", "html", "css",
 				"javascript", "python", "vimdoc", "query" },
@@ -21,12 +18,12 @@ return {
 			indent = { enable = true, },
 			incremental_selection = {
 				enable = true,
-			keymaps = {
-				init_selection = "<Leader>ss",
-				node_incremental = "<Leader>si",
-				scope_incremental = "<Leader>s>",
-				node_decremental = "<Leader>sd",
-			},
+				keymaps = {
+					init_selection = "<Leader>ss",
+					node_incremental = "<Leader>si",
+					scope_incremental = "<Leader>s>",
+					node_decremental = "<Leader>sd",
+				},
 			},
 		}
 	end
