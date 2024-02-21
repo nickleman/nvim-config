@@ -14,7 +14,7 @@ vim.api.nvim_set_keymap("n", "<A-l>", "<C-w>>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<A-j>", "<C-w>-", { noremap = true })
 vim.api.nvim_set_keymap("n", "<A-k>", "<C-w>+", { noremap = true })
 
--- Resizing windows
+-- Move windows
 vim.api.nvim_set_keymap("n", "<A-C-h>", "<C-w>H", { noremap = true })
 vim.api.nvim_set_keymap("n", "<A-C-l>", "<C-w>L", { noremap = true })
 vim.api.nvim_set_keymap("n", "<A-C-j>", "<C-w>J", { noremap = true })
