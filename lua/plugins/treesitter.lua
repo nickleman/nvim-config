@@ -7,6 +7,9 @@ return {
             require('nvim-treesitter.install').compilers = { "clang" }
         end
 		require('nvim-treesitter.configs').setup {
+            if vim.loop.os_uname().sysname == "Windows_NT" then
+                require('nvim-treesitter.install').compilers = { "clang" }
+            end
 			-- A list of parser names, or "all"
 			ensure_installed = { "c", "lua", "rust", "vim", "html", "css",
 				"javascript", "python", "vimdoc", "query" },
