@@ -1,6 +1,7 @@
 return {
 	'mfussenegger/nvim-dap',
 	dependencies = { 'rcarriga/nvim-dap-ui' },
+	event = { "BufReadPre" },
 	config = function()
 		local dap = require("dap")
 		local dapui = require('dapui')

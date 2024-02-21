@@ -1,6 +1,7 @@
 return {
 	{
 		'hrsh7th/cmp-nvim-lsp',
+		event = { "BufReadPre", "BufNewFile"},
 	},
 	{
 		'L3MON4D3/LuaSnip',
@@ -8,9 +9,11 @@ return {
 			'saadparwaiz1/cmp_luasnip',
 			'rafamadriz/friendly-snippets',
 		},
+		event = { "BufReadPre", "BufNewFile"},
 	},
 	{
 		'hrsh7th/nvim-cmp',
+		event = { "BufReadPre", "BufNewFile"},
 		config = function()
 			local cmp = require 'cmp'
 			require("luasnip.loaders.from_vscode").lazy_load()
