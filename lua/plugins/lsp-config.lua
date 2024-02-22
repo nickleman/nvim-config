@@ -26,6 +26,7 @@ return {
 					"ruff_lsp",
 					"emmet_language_server",
 					"clangd",
+					"marksman",
 				}
 			})
 		end
@@ -65,6 +66,9 @@ return {
 				capabilities = capabilities,
 			})
 			lspconfig.jedi_language_server.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.marksman.setup({
 				capabilities = capabilities,
 			})
 			lspconfig.tailwindcss.setup({
