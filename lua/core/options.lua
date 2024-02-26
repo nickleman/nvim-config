@@ -19,6 +19,7 @@ vim.o.shiftwidth = 4
 vim.o.smarttab = true
 vim.o.softtabstop = 4
 vim.o.expandtabs = true
+vim.o.textwidth=80
 
 -- Enable the mouse interactions
 vim.o.mouse = 'a'
