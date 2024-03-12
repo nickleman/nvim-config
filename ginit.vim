@@ -1,1 +1,1 @@
-set guifont=FiraCode\ NF:h11:l
+set guifont=CaskaydiaCove\ NFM:h11:l
