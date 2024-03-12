@@ -27,6 +27,7 @@ return {
 					"emmet_language_server",
 					"clangd",
 					"marksman",
+					"rust_analyzer",
 				}
 			})
 		end
@@ -89,6 +90,10 @@ return {
 				filetypes = { "html", "templ", "htmldjango", "jinja" }
 			})
 			lspconfig.ruff_lsp.setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
+			lspconfig.rust_analyzer.setup({
 				capabilities = capabilities,
 				on_attach = on_attach,
 			})
