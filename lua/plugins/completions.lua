@@ -1,7 +1,8 @@
 return {
 	{
 		'hrsh7th/cmp-nvim-lsp',
-		event = { "BufReadPre", "BufNewFile" },
+		lazy = true,
+		event = { "InsertEnter" }, -- "BufReadPre", "BufNewFile" },
 	},
 	{
 		'L3MON4D3/LuaSnip',
@@ -9,11 +10,15 @@ return {
 			'saadparwaiz1/cmp_luasnip',
 			'rafamadriz/friendly-snippets',
 		},
-		event = { "BufReadPre", "BufNewFile" },
+		lazy = true,
+		event = { "InsertEnter" }, -- "BufReadPre", "BufNewFile" },
+		-- event = { "BufReadPre", "BufNewFile" },
 	},
 	{
 		'hrsh7th/nvim-cmp',
-		event = { "BufReadPre", "BufNewFile" },
+		lazy = true,
+		-- event = { "BufReadPre", "BufNewFile" },
+		event = { "InsertEnter" }, -- "BufReadPre", "BufNewFile" },
 		config = function()
 			local has_words_before = function()
 				unpack = unpack or table.unpack

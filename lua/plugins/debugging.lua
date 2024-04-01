@@ -1,7 +1,8 @@
 return {
 	'mfussenegger/nvim-dap',
-	dependencies = { 'rcarriga/nvim-dap-ui' },
-	event = { "BufReadPre" },
+	dependencies = { 'rcarriga/nvim-dap-ui', 'nvim-neotest/nvim-nio' },
+	lazy = true,
+	event = { "VeryLazy" },
 	config = function()
 		local dap = require("dap")
 		local dapui = require('dapui')

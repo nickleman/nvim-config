@@ -5,6 +5,9 @@
 -- -- vim.opt.columns=110
 -- end
 
+-- Set to true if you have a Nerd Font installed
+vim.g.have_nerd_font = true
+
 -- Set highlight on search
 vim.o.hlsearch = true
 
@@ -19,7 +22,7 @@ vim.o.shiftwidth = 4
 vim.o.smarttab = true
 vim.o.softtabstop = 4
 vim.o.expandtabs = true
-vim.o.textwidth=80
+vim.o.textwidth = 80
 
 -- Enable the mouse interactions
 vim.o.mouse = 'a'

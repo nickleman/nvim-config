@@ -1,6 +1,7 @@
 return {
 	'nvim-treesitter/nvim-treesitter',
 	build = ":TSUpdate",
+	lazy = true,
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		if vim.loop.os_uname().sysname == "Windows_NT" then
