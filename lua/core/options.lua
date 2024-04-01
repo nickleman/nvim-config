@@ -63,3 +63,6 @@ vim.keymap.set('n', '<Leader>sc', ':nohlsearch<CR>')
 -- Have vim wrap on words not characters
 vim.wo.wrap = true
 vim.wo.linebreak = true
+
+-- Minimal number of screen lines to keep above and below the cursor
+vim.opt.scrolloff = 10
