@@ -31,6 +31,8 @@ vim.api.nvim_set_keymap("n", "<Leader>tp", ":tabprevious<Cr>", { noremap = true 
 
 -- Control-Backspace to start of word
 vim.api.nvim_set_keymap('i', '<C-H>', '<C-w>', { noremap = true })
+-- For neovim-qt on windows
+vim.api.nvim_set_keymap('i', '<C-Bs>', '<C-w>', { noremap = true })
 -- Control-Delete to end of word
 vim.api.nvim_set_keymap('i', '<C-Del>', '<Esc>lce', { noremap = true })
 
