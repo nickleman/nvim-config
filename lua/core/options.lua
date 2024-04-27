@@ -21,7 +21,7 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.smarttab = true
 vim.o.softtabstop = 4
-vim.o.expandtabs = true
+vim.o.expandtab = true
 vim.o.textwidth = 80
 
 -- Enable the mouse interactions
@@ -82,3 +82,12 @@ vim.opt.timeoutlen = 300
 --  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+-- Set up spelling
+--  You can use z= to see all the spelling options and zg to add word to the
+--  good spelling list. :spellr will correct all the occurrences of the
+--  misspelled word.
+--  ]s and [s move to next and previous misspelled words.
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = true
+
