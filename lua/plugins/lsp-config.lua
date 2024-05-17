@@ -175,19 +175,20 @@ return {
 				settings = {
 					emmetCompletions = true
 				},
+				capabilities = capabilities,
 				init_options = {
 					userLanguages = { jinja = "html" }
 				},
-				filetypes = { "html", "jinja", "htmldjango" }
+				filetypes = { "html", "jinja", "htmldjango", "html.jinja", "jinja.html" }
 			},
 			html = {
 				init_options = {
 					userLanguages = { jinja = "html" }
 				},
-				filetypes = { "html", "templ", "htmldjango", "jinja" }
+				filetypes = { "html", "templ", "htmldjango", "jinja", "jinja.html", "html.jinja" }
 			},
 			emmet_language_server = {
-				filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "jinja", "htmldjango" },
+				filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "jinja", "htmldjango", "html.jinja", "jinja.html" },
 				-- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
 				-- **Note:** only the options listed in the table are supported.
 				init_options = {
