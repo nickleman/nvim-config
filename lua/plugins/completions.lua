@@ -1,9 +1,11 @@
 return {
     'hrsh7th/nvim-cmp',
-    lazy = true,
+    lazy = false,
     -- event = { "BufReadPre", "BufNewFile" },
-    event = { "InsertEnter" }, -- "BufReadPre", "BufNewFile" },
+    -- event = { "InsertEnter" }, -- "BufReadPre", "BufNewFile" },
+    priority = 100,
     dependencies = {
+        'onsails/lspkind.nvim',
         'L3MON4D3/LuaSnip',
         build = (function()
             -- Build step is needed for regex support in snippets.
@@ -32,6 +34,12 @@ return {
         'hrsh7th/cmp-path',
     },
     config = function()
+        vim.opt.completeopt = { "menu", "menuone", "noselect", "preview" }
+        vim.opt.shortmess:append "c"
+
+        local lspkind = require("lspkind")
+        lspkind.init({})
+
         -- See `:help cmp`
         local has_words_before = function()
             unpack = unpack or table.unpack
@@ -73,14 +81,12 @@ return {
                 ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 
                 -- Select the [n]ext item
-                ['<C-n>'] = cmp.mapping.select_next_item(),
+                ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
                 ["<Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
-                        cmp.select_next_item()
+                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
                         -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
                         -- that way you will only jump inside the snippet region
-                    elseif luasnip.expand_or_jumpable() then
-                        luasnip.expand_or_jump()
                     elseif has_words_before() then
                         cmp.complete()
                     else
@@ -89,12 +95,10 @@ return {
                 end, { "i", "s" }),
 
                 -- Select the [p]revious item
-                ['<C-p>'] = cmp.mapping.select_prev_item(),
+                ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
                 ["<S-Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
-                        cmp.select_prev_item()
-                    elseif luasnip.jumpable(-1) then
-                        luasnip.jump(-1)
+                        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
                     else
                         fallback()
                     end
@@ -123,7 +127,7 @@ return {
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- For luasnip users.
-                { name = 'path' }, -- For luasnip users.
+                { name = 'path' },    -- For luasnip users.
             }, {
                 { name = 'buffer' },
             })
