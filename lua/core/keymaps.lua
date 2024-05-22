@@ -36,6 +36,9 @@ vim.api.nvim_set_keymap('i', '<C-Bs>', '<C-w>', { noremap = true })
 -- Control-Delete to end of word
 vim.api.nvim_set_keymap('i', '<C-Del>', '<Esc>lce', { noremap = true })
 
+-- Clear search highlights on ' sc'
+vim.keymap.set('n', '<Leader>sc', '<cmd>nohlsearch<CR>')
+
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
