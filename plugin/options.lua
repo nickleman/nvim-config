@@ -50,13 +50,6 @@ vim.cmd.termguicolors = true
 -- Change the SignColumn color though
 vim.api.nvim_set_hl(0, 'SignColumn', { link = 'LineNr' })
 
--- [[ Basic Keymaps ]]
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
 -- Have vim wrap on words not characters
 vim.wo.wrap = true
 vim.wo.linebreak = true
