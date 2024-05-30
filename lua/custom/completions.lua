@@ -16,6 +16,8 @@ local cmp = require('cmp')
 local luasnip = require('luasnip')
 require("luasnip.loaders.from_vscode").lazy_load()
 
+vim.snippet.expand = luasnip.lsp_expand
+
 cmp.setup({
     snippet = {
         -- REQUIRED - you must specify a snippet engine
@@ -42,7 +44,7 @@ cmp.setup({
         --  This will auto-import if your LSP supports it.
         --  This will expand snippets if the LSP sent a snippet.
         ['<C-y>'] = cmp.mapping.confirm { select = true },
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),         -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),         -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 
         -- Select the [n]ext item
         ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -75,12 +77,12 @@ cmp.setup({
         --
         -- <c-l> will move you to the right of each of the expansion locations.
         -- <c-h> is similar, except moving you backwards.
-        ['<C-l>'] = cmp.mapping(function()
+        ['<C-k>'] = cmp.mapping(function()
             if luasnip.expand_or_locally_jumpable() then
                 luasnip.expand_or_jump()
             end
         end, { 'i', 's' }),
-        ['<C-h>'] = cmp.mapping(function()
+        ['<C-j>'] = cmp.mapping(function()
             if luasnip.locally_jumpable(-1) then
                 luasnip.jump(-1)
             end
