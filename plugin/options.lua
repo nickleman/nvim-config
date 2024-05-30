@@ -80,4 +80,3 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 --  ]s and [s move to next and previous misspelled words.
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
-

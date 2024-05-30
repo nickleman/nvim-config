@@ -1,6 +1,8 @@
 local dap = require("dap")
 local dapui = require('dapui')
+local dap_python = require('dap-python')
 
+dap_python.setup()
 dapui.setup()
 
 dap.listeners.before.attach.dapui_config = function()
