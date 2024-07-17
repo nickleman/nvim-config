@@ -1,14 +1,24 @@
-require('which-key').setup()
+local wk = require('which-key')
+wk.setup()
 
 -- Document existing key chains
-require('which-key').register {
-    ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-    ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-    ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-    ['<leader>f'] = { name = '[F]uzzy Find', _ = 'which_key_ignore' },
-    ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-    ['<leader>h'] = { name = 'Gitsign Change [H]unks', _ = 'which_key_ignore' },
-    ['<leader>t'] = { name = '[T]abs', _ = 'which_key_ignore' },
-    ['<leader>s'] = { name = '[S]election', _ = 'which_key_ignore' },
-    ['<leader>g'] = { name = '[G]it Worktrees', _ = 'which_key_ignore' },
-}
+wk.add({
+    { '<leader>c',  name = '[C]ode' },
+    { '<leader>c_', hidden = true },
+    { '<leader>d',  name = '[D]ocument' },
+    { '<leader>d_', hidden = true },
+    { '<leader>r',  name = '[R]ename' },
+    { '<leader>r_', hidden = true },
+    { '<leader>f',  name = '[F]uzzy Find' },
+    { '<leader>f_', hidden = true },
+    { '<leader>w',  name = '[W]orkspace' },
+    { '<leader>w_', hidden = true },
+    { '<leader>h',  name = 'Gitsign Change [H]unks' },
+    { '<leader>h_', hidden = true },
+    { '<leader>t',  name = '[T]abs' },
+    { '<leader>t_', hidden = true },
+    { '<leader>s',  name = '[S]election' },
+    { '<leader>s_', hidden = true },
+    { '<leader>g',  name = '[G]it Worktrees' },
+    { '<leader>g_', hidden = true },
+})
