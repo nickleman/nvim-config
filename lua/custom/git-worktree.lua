@@ -1,11 +1,9 @@
 local gwt = require('git-worktree')
-gwt.setup()
+-- gwt.setup()
 
 -- local Hooks = require('git-worktree.hooks')
 -- -- Basic hook to change current buffer on worktree switch
--- gwt.hooks({
--- SWITCH = Hooks.builtins.update_current_buffer_on_switch
--- })
+-- Hooks.register(Hooks.type.SWITCH, Hooks.builtins.update_current_buffer_on_switch)
 
 require('telescope').load_extension('git_worktree')
 
