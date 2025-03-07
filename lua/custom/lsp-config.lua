@@ -100,7 +100,7 @@ local servers = {
     docker_compose_language_service = {},
     pyright = {},
     -- jedi_language_server = {},
-    ruff_lsp = {},
+    ruff = {},
     clangd = {},
     marksman = {},
     -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -120,8 +120,8 @@ local servers = {
                 },
                 -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
                 diagnostics = {
-                disable = { 'missing-fields' },
-                -- globals = { "vim" },
+                    disable = { 'missing-fields' },
+                    -- globals = { "vim" },
                 },
             },
         },
@@ -154,6 +154,7 @@ local servers = {
             },
         },
     },
+    jsonls = {},
 }
 
 -- Ensure the servers and tools above are installed
