@@ -51,6 +51,19 @@ return { -- Collection of various small independent plugins/modules
                 },
             }
         )
+
+        -- Configurable functions for moving forward and backwards using [, and ]
+        -- [B go to first buffer [b go to previous buffer
+        -- ]B go to last buffer ]b go to next buffer
+        -- C and c for comments
+        -- X and x for conflict markers
+        -- D and d for diagnostics
+        -- I and i for indentation changes
+        -- Q and q for quick fix entries
+        -- W and w for windows in the current tab
+        -- T and t for Tree-sitter node and parents
+        require('mini.bracketed').setup()
+
         -- ... and there is more!
         --  Check out: https://github.com/echasnovski/mini.nvim
     end,
