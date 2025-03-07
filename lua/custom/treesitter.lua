@@ -9,8 +9,18 @@ require('nvim-treesitter.configs').setup {
     -- Install parsers synchronously (only applied to 'ensure_installed')
     sync_install = false,
     auto_install = true,
-    highlight = { enable = true, },
+    highlight = {
+        max_file_lines = 10000,
+        enable = true,
+        disable = function(lang, bufnr)
+            return vim.fn.getfsize(vim.api.nvim_buf_get_name(bufnr)) > 1 * 1024 * 1024
+        end,
+        additional_vim_regex_highlighting = false,
+    },
     indent = { enable = true, },
+    disable = function(lang, bufnr)
+        return vim.fn.getfsize(vim.api.nvim_buf_get_name(bufnr)) > 1 * 1024 * 1024
+    end,
     incremental_selection = {
         enable = true,
         keymaps = {
@@ -19,5 +29,10 @@ require('nvim-treesitter.configs').setup {
             scope_incremental = "<Leader>s>",
             node_decremental = "<Leader>sd",
         },
+    },
+    textobjects = {
+        select = {
+            enable = false,
+        }
     },
 }
