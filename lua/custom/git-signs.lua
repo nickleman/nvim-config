@@ -37,9 +37,9 @@ require('gitsigns').setup {
         row = 0,
         col = 1
     },
-    yadm                         = {
-        enable = false
-    },
+    -- yadm                         = {
+    --     enable = false
+    -- },
     on_attach                    = function(bufnr)
         local gs = package.loaded.gitsigns
 
@@ -50,13 +50,13 @@ require('gitsigns').setup {
         end
 
         -- Navigation
-        map('n', ']c', function()
+        map('n', ']h', function()
             if vim.wo.diff then return ']c' end
             vim.schedule(function() gs.next_hunk() end)
             return '<Ignore>'
         end, { expr = true })
 
-        map('n', '[c', function()
+        map('n', '[h', function()
             if vim.wo.diff then return '[c' end
             vim.schedule(function() gs.prev_hunk() end)
             return '<Ignore>'
