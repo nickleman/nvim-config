@@ -91,6 +91,9 @@ cmp.setup({
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
     }),
     sources = cmp.config.sources({
+        -- Copilot Source
+        { name = "copilot", group_index = 2 },
+        -- Other Sources
         { name = 'nvim_lsp' },
         { name = 'luasnip' },         -- For luasnip users.
         { name = 'path' },            -- For luasnip users.

@@ -32,6 +32,22 @@ return {
         --  split into multiple repos for maintenance purposes.
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-path',
+        -- Add Github Copilot
+        -- 'github/copilot.vim',
+        {
+            'zbirenbaum/copilot.lua',
+            cmd = "Copilot",
+            event = "InsertEnter",
+            config = function()
+                require('copilot').setup()
+            end,
+        },
+        {
+            "zbirenbaum/copilot-cmp",
+            config = function()
+                require("copilot_cmp").setup()
+            end,
+        },
     },
     config = function()
         require("custom.completions")
