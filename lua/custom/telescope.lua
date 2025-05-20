@@ -76,5 +76,5 @@ end, { desc = '[f]uzzy find neovim [c]onfig files' })
 
 -- Shortcut for fuzzy finding my Notes files
 vim.keymap.set('n', '<Leader>fn', function()
-    builtin.find_files { cwd = '~/Documents/Notes' }
+    builtin.find_files { cwd = '~/OneDrive - GE Aerospace/Documents/Notes' }
 end, { desc = '[f]uzzy find [n]ote files' })

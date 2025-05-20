@@ -32,15 +32,24 @@ return {
         --  split into multiple repos for maintenance purposes.
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-path',
-        -- Add Github Copilot
-        -- 'github/copilot.vim',
+        -- Add co-pilot chat
         {
-            'zbirenbaum/copilot.lua',
-            cmd = "Copilot",
-            event = "InsertEnter",
-            config = function()
-                require('copilot').setup()
-            end,
+            'CopilotC-Nvim/CopilotChat.nvim',
+            dependencies = {
+                -- Add Github Copilot
+                -- 'github/copilot.vim',
+                {
+                    'zbirenbaum/copilot.lua',
+                    cmd = "Copilot",
+                    event = "InsertEnter",
+                    config = function()
+                        require('copilot').setup()
+                    end,
+                },
+                { 'nvim-lua/plenary.nvim'},
+            },
+            opts = {
+            },
         },
         {
             "zbirenbaum/copilot-cmp",
