@@ -39,9 +39,13 @@ return {
         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
         { 'j-hui/fidget.nvim',                 opts = {} },
 
-        -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
+        -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
         -- used for completion, annotations and signatures of Neovim apis
-        { 'folke/neodev.nvim',                 opts = {} },
+        {
+            'folke/lazydev.nvim',
+            ft = "lua",
+            opts = {}
+        },
     },
     config = function()
         require("custom.lsp-config")
