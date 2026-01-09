@@ -10,5 +10,6 @@ return {
     -- Auto completion
     -- LSP configuration and utilization
 
-    'Glench/Vim-Jinja2-Syntax', -- Jinja 2 syntax highlighting
+    -- 'Glench/Vim-Jinja2-Syntax', -- Jinja 2 syntax highlighting
+    -- 'HiPhish/jinja',
 }

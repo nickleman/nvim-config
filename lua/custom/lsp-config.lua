@@ -95,58 +95,62 @@ capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp'
 --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 --  - settings (table): Override the default settings passed when initializing the server.
 --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-local modern_servers = {'ty'}
+local modern_servers = {
+    'clangd',
+    'dockerls', 'docker_compose_language_service',
+    'html', 'htmx',
+    'jsonls',
+    'lua_ls',
+    'marksman',
+    'ruff',
+    'tailwindcss', 'ty',
+}
 local servers = {
-    dockerls = {},
-    docker_compose_language_service = {},
     -- pyright = {},
     -- jedi_language_server = {},
-    ruff = {},
-    clangd = {},
-    marksman = {},
     -- Some languages (like typescript) have entire language plugins that can be useful:
     --    https://github.com/pmizio/typescript-tools.nvim
     --
     -- But for many setups, the LSP (`tsserver`) will work just fine
     -- tsserver = {},
     --
-    lua_ls = {
-        -- cmd = {...},
-        -- filetypes = { ...},
-        -- capabilities = {},
-        -- Sets the "workspace" to the directory where any of these files is found.
-        -- Files that share a root directory will reuse the LSP server connection.
-        -- Nested lists indicate equal priority, see |vim.lsp.Config|.
-        root_markers = { { '.luarc.json', '.luarc.jsonc' }, '.git' },
-        settings = {
-            Lua = {
-                completion = {
-                    callSnippet = 'Replace',
-                },
-                -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-                diagnostics = {
-                    disable = { 'missing-fields' },
-                    -- globals = { "vim" },
-                },
-            },
-        },
-    },
-    tailwindcss = {
-        settings = {
-            emmetCompletions = true
-        },
-        capabilities = capabilities,
-        init_options = {
-            userLanguages = { jinja = "html" }
-        },
-        filetypes = { "html", "jinja", "htmldjango", "html.jinja", "jinja.html" }
-    },
-    html = {
-        init_options = {
-            userLanguages = { jinja = "html" }
-        },
-        filetypes = { "html", "templ", "htmldjango", "jinja", "jinja.html", "html.jinja" }
-    },
+    -- lua_ls = {
+    --     -- cmd = {...},
+    --     -- filetypes = { ...},
+    --     -- capabilities = {},
+    --     -- Sets the "workspace" to the directory where any of these files is found.
+    --     -- Files that share a root directory will reuse the LSP server connection.
+    --     -- Nested lists indicate equal priority, see |vim.lsp.Config|.
+    --     root_markers = { { '.luarc.json', '.luarc.jsonc' }, '.git' },
+    --     settings = {
+    --         Lua = {
+    --             completion = {
+    --                 callSnippet = 'Replace',
+    --             },
+    --             -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+    --             diagnostics = {
+    --                 disable = { 'missing-fields' },
+    --                 -- globals = { "vim" },
+    --             },
+    --         },
+    --     },
+    -- },
+    -- tailwindcss = {
+    --     settings = {
+    --         emmetCompletions = true
+    --     },
+    --     capabilities = capabilities,
+    --     init_options = {
+    --         userLanguages = { jinja = "html" }
+    --     },
+    --     filetypes = { "html", "jinja", "htmldjango", "html.jinja", "jinja.html" }
+    -- },
+    -- html = {
+    --     init_options = {
+    --         userLanguages = { jinja = "html" }
+    --     },
+    --     filetypes = { "html", "templ", "htmldjango", "jinja", "jinja.html", "html.jinja" }
+    -- },
     emmet_language_server = {
         filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "jinja", "htmldjango", "html.jinja", "jinja.html" },
         -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
@@ -159,7 +163,6 @@ local servers = {
             },
         },
     },
-    jsonls = {},
 }
 
 -- Ensure the servers and tools above are installed
@@ -173,7 +176,7 @@ require('mason').setup()
 -- You can add other tools here that you want Mason to install
 -- for you, so that they are available from within Neovim.
 local ensure_installed = vim.tbl_keys(servers or {})
-vim.list_extend(ensure_installed,  modern_servers or {})
+vim.list_extend(ensure_installed, modern_servers or {})
 --   'stylua', -- Used to format Lua code
 -- })
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
