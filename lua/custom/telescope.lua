@@ -6,6 +6,8 @@
 -- Telescope picker. This is really useful to discover what Telescope can
 -- do as well as how to actually do it!
 
+local fb_actions = require("telescope._extensions.file_browser.actions");
+
 require('telescope').setup {
     -- You can put your default mappings / updates / etc. in here
     --  All the info you're looking for is in
@@ -21,11 +23,30 @@ require('telescope').setup {
         ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
         },
+        file_browser = {
+            hijack_netrw = true,
+            mappings = {
+                -- Your custom insert mode mappings
+                i = {
+                    -- Just an example, put your own stuff here
+                    -- ['<C-w>'] = function()
+                    --     vim.cmd 'normal vbd'
+                    -- end,
+                },
+                n = {
+                    -- Your custom normal mode mappings
+                    ["<bs>"] = fb_actions.goto_parent_dir,
+                    ["a"] = fb_actions.create,
+                },
+            },
+        }
+
     },
 }
 
 -- Enable Telescope extensions if they are installed
 -- pcall(require('telescope').load_extension('fzf'))
+pcall(require('telescope').load_extension('file_browser'))
 pcall(require('telescope').load_extension('ui-select'))
 
 -- See :help telescope.builtin
@@ -40,8 +61,8 @@ vim.keymap.set('n', '<Leader>fh', builtin.help_tags,
     { desc = '[f]uzzy find [h]elp' })
 vim.keymap.set('n', '<Leader>fk', builtin.keymaps,
     { desc = '[f]uzzy find [k]eymaps' })
-vim.keymap.set('n', '<Leader>fs', builtin.builtin,
-    { desc = '[f]uzzy find [s]elect Telescope' })
+-- vim.keymap.set('n', '<Leader>fs', builtin.builtin,
+--     { desc = '[f]uzzy find [s]elect Telescope' })
 vim.keymap.set('n', '<Leader>fw', builtin.grep_string,
     { desc = '[f]uzzy find current [w]ord' })
 vim.keymap.set('n', '<Leader>fd', builtin.diagnostics,
@@ -74,7 +95,22 @@ vim.keymap.set('n', '<Leader>fc', function()
     builtin.find_files { cwd = vim.fn.stdpath 'config' }
 end, { desc = '[f]uzzy find neovim [c]onfig files' })
 
+-- Shortcut for fuzzy searching my Neovim configuration files
+vim.keymap.set('n', '<Leader>fsc', function()
+    builtin.live_grep { cwd = vim.fn.stdpath 'config' }
+end, { desc = '[f]uzzy [s]earch neovim [c]onfig files' })
+
 -- Shortcut for fuzzy finding my Notes files
 vim.keymap.set('n', '<Leader>fn', function()
     builtin.find_files { cwd = '~/OneDrive - GE Aerospace/Documents/Notes' }
 end, { desc = '[f]uzzy find [n]ote files' })
+
+-- Shortcut for fuzzy searching my Notes files
+vim.keymap.set('n', '<Leader>fsn', function()
+    builtin.live_grep { cwd = '~/OneDrive - GE Aerospace/Documents/Notes' }
+end, { desc = '[f]uzzy [s]earch [n]ote files' })
+
+-- Shortcut for opening the file browser
+vim.keymap.set('n', '<Leader>fb', function()
+    require('telescope').extensions.file_browser.file_browser({ path = vim.fn.expand("%:h") })
+end, { desc = '[f]ile [b]rowser' })

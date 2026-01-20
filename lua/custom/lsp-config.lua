@@ -98,8 +98,9 @@ capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp'
 local modern_servers = {
     'clangd',
     'dockerls', 'docker_compose_language_service',
+    'emmet_language_server',
     'html', 'htmx',
-    'jsonls',
+    'jinja_lsp', 'jsonls',
     'lua_ls',
     'marksman',
     'ruff',
@@ -151,18 +152,18 @@ local servers = {
     --     },
     --     filetypes = { "html", "templ", "htmldjango", "jinja", "jinja.html", "html.jinja" }
     -- },
-    emmet_language_server = {
-        filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "jinja", "htmldjango", "html.jinja", "jinja.html" },
-        -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
-        -- **Note:** only the options listed in the table are supported.
-        init_options = {
-            ---@type table<string, string>
-            includeLanguages = {
-                jinja = "html",
-                htmldjango = "html"
-            },
-        },
-    },
+    -- emmet_language_server = {
+    --     filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "jinja", "htmldjango", "html.jinja", "jinja.html" },
+    --     -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
+    --     -- **Note:** only the options listed in the table are supported.
+    --     init_options = {
+    --         ---@type table<string, string>
+    --         includeLanguages = {
+    --             jinja = "html",
+    --             htmldjango = "html"
+    --         },
+    --     },
+    -- },
 }
 
 -- Ensure the servers and tools above are installed
@@ -189,7 +190,8 @@ require('mason-lspconfig').setup {
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             -- require('lspconfig')[server_name].setup(server)
-            vim.lsp.config[server_name] = server
+            vim.lsp.config(server_name, server)
+            vim.lsp.enable(server_name)
         end,
     },
 }
