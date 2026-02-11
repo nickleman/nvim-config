@@ -181,6 +181,8 @@ vim.list_extend(ensure_installed, modern_servers or {})
 --   'stylua', -- Used to format Lua code
 -- })
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+-- vim.lsp.config['pytest_lsp']
+vim.lsp.enable('pytest_lsp')
 require('mason-lspconfig').setup {
     handlers = {
         function(server_name)

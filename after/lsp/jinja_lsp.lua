@@ -18,6 +18,6 @@
 return {
   name = 'jinja_lsp',
   cmd = { 'jinja-lsp' },
-  filetypes = { 'jinja', 'html.jinja', 'jinja.html' },
-  root_markers = { '.git' },
+  filetypes = { 'jinja', 'html.jinja', 'jinja.html', 'python' },
+  root_markers = { '.git', 'pyproject.toml' },
 }
