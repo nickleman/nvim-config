@@ -35,6 +35,7 @@ return {
         -- Add co-pilot chat
         {
             'CopilotC-Nvim/CopilotChat.nvim',
+            build = "make tiktoken", -- Compiles the tiktoken_core.so library
             dependencies = {
                 -- Add Github Copilot
                 -- 'github/copilot.vim',
