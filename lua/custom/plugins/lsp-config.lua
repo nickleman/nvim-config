@@ -53,6 +53,12 @@ return {
             ft = "lua",
             opts = {}
         },
+        {
+            "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+            config = function()
+                require("lsp_lines").setup()
+            end,
+        },
     },
     config = function()
         require("custom.lsp-config")

@@ -1,10 +1,13 @@
 -- this is what you previously passed to ensure_installed
-local languages = { "c", "css", "diff", "html", "javascript",
+local languages = { "bash", "c", "css", "diff", "html", "javascript",
     "jinja", "jinja_inline", "latex", "lua", "python", "query",
     "rust", "sql", "vim", "vimdoc" }
 
 -- replicate `ensure_installed`, runs asynchronously, skips existing languages
 require('nvim-treesitter').install(languages)
+
+-- Use the bash parser for zsh files (there is no dedicated zsh parser)
+vim.treesitter.language.register('bash', 'zsh')
 
 vim.api.nvim_create_autocmd('FileType', {
     group = vim.api.nvim_create_augroup('treesitter.setup', {}),
@@ -21,10 +24,10 @@ vim.api.nvim_create_autocmd('FileType', {
         end
 
         -- replicate `fold = { enable = true }`
-        vim.opt.foldmethod = 'expr'
-        vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-        vim.opt.foldlevel= 99
-        vim.opt.foldlevelstart = 99
+        vim.opt_local.foldmethod = 'expr'
+        vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        vim.opt_local.foldlevel = 99
+        vim.opt_local.foldlevelstart = 99
 
         -- replicate `highlight = { enable = true }`
         vim.treesitter.start(buf, language)
