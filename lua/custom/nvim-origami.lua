@@ -31,7 +31,21 @@ vim.api.nvim_create_autocmd({ "BufUnload", "BufWipeout" }, {
     end,
 })
 
--- vim.opt.statuscolumn = "%!v:lua.StatusCol()"
--- function _G.StatusCol()
---     return fold_util.statuscol()
--- end
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "qf",
+    callback = function(args)
+        -- 1. Forcefully disable folding mechanics inside quickfix
+        vim.opt_local.foldenable = false
+        vim.opt_local.foldmethod = "manual"
+
+        -- 2. Safely remove any custom folding or accidental <CR> overrides
+        pcall(vim.keymap.del, "n", "<CR>", { buffer = args.buf })
+
+        -- 3. Force <CR> to execute the native built-in quickfix jump command
+        vim.keymap.set("n", "<CR>", "<CR>", {
+            buffer = args.buf,
+            silent = true,
+            noremap = true
+        })
+    end,
+})
