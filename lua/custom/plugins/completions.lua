@@ -6,17 +6,17 @@ return {
     priority = 100,
     dependencies = {
         'onsails/lspkind.nvim',
-        'L3MON4D3/LuaSnip',
-        build = 'make install_jsregexp',
-        dependencies = {
+        {
+            'L3MON4D3/LuaSnip',
+            -- Builds jsregexp, which LuaSnip needs for LSP snippets that use
+            --  regex transformations. Optional, but cheap to have.
+            build = 'make install_jsregexp',
             -- `friendly-snippets` contains a variety of premade snippets.
             --  See the README about individual language/framework/plugin
             --  snippets. https://github.com/rafamadriz/friendly-snippets
-            config = function()
-                require('luasnip.loaders.from_vscode').lazy_load()
-            end,
+            --  It is loaded by `lazy_load()` in custom/completions.lua.
+            dependencies = { 'rafamadriz/friendly-snippets' },
         },
-        'rafamadriz/friendly-snippets',
         'saadparwaiz1/cmp_luasnip',
 
         -- Adds other completion capabilities.
@@ -24,6 +24,7 @@ return {
         --  split into multiple repos for maintenance purposes.
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-path',
+        'hrsh7th/cmp-buffer',
         -- Add co-pilot chat
         {
             'CopilotC-Nvim/CopilotChat.nvim',

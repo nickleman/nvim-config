@@ -1,24 +1,18 @@
 local wk = require('which-key')
 wk.setup()
 
--- Document existing key chains
+-- Document existing key chains.
+--  NOTE: the key is `group`, not `name` -- `name` is a which-key v2 idiom that v3
+--  still auto-transforms but reports as deprecated. The old `{ '<leader>x_',
+--  hidden = true }` entries were also v2-only placeholders and have been dropped.
 wk.add({
-    { '<leader>c',  name = '[C]ode' },
-    { '<leader>c_', hidden = true },
-    { '<leader>d',  name = '[D]ocument' },
-    { '<leader>d_', hidden = true },
-    { '<leader>r',  name = '[R]ename' },
-    { '<leader>r_', hidden = true },
-    { '<leader>f',  name = '[F]uzzy Find' },
-    { '<leader>f_', hidden = true },
-    { '<leader>w',  name = '[W]orkspace' },
-    { '<leader>w_', hidden = true },
-    { '<leader>h',  name = 'Gitsign Change [H]unks' },
-    { '<leader>h_', hidden = true },
-    { '<leader>t',  name = '[T]abs' },
-    { '<leader>t_', hidden = true },
-    { '<leader>s',  name = '[S]election' },
-    { '<leader>s_', hidden = true },
-    { '<leader>g',  name = '[G]it Worktrees' },
-    { '<leader>g_', hidden = true },
+    { '<leader>c', group = '[C]ode' },
+    { '<leader>d', group = '[D]ocument' },
+    { '<leader>r', group = '[R]ename' },
+    { '<leader>f', group = '[F]uzzy Find' },
+    { '<leader>w', group = '[W]orkspace' },
+    { '<leader>h', group = 'Gitsign Change [H]unks' },
+    { '<leader>t', group = '[T]abs' },
+    { '<leader>s', group = '[S]election' },
+    { '<leader>g', group = '[G]it Worktrees' },
 })

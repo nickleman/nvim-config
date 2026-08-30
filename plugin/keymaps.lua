@@ -39,12 +39,18 @@ vim.api.nvim_set_keymap('i', '<C-Del>', '<Esc>lce', { noremap = true })
 -- Clear search highlights on ' sc'
 vim.keymap.set('n', '<Leader>sc', '<cmd>nohlsearch<CR>')
 
--- Set highlight on search, but clear on pressing <Esc> in normal mode
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+-- NOTE: <Esc> is deliberately NOT mapped in normal mode. Terminals send Alt-<key>
+--  as <Esc><key>, so mapping <Esc> makes it ambiguous with the <A-hjkl> window
+--  resize maps below and mini.move's <M-arrow> maps -- costing a 'timeoutlen' stall
+--  or misfiring outright. <Leader>sc above already clears the highlight.
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+--  goto_prev/goto_next are deprecated and slated for removal in 0.13. They defaulted
+--  to float = true, which is passed explicitly here to keep the same behavior.
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump { count = -1, float = true } end,
+    { desc = 'Go to previous [D]iagnostic message' })
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump { count = 1, float = true } end,
+    { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 

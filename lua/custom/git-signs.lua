@@ -41,7 +41,7 @@ require('gitsigns').setup {
     --     enable = false
     -- },
     on_attach                    = function(bufnr)
-        local gs = package.loaded.gitsigns
+        local gs = require('gitsigns')
 
         local function map(mode, l, r, opts)
             opts = opts or {}
@@ -50,15 +50,16 @@ require('gitsigns').setup {
         end
 
         -- Navigation
+        --  next_hunk/prev_hunk are deprecated in favor of nav_hunk().
         map('n', ']h', function()
             if vim.wo.diff then return ']c' end
-            vim.schedule(function() gs.next_hunk() end)
+            vim.schedule(function() gs.nav_hunk('next') end)
             return '<Ignore>'
         end, { expr = true })
 
         map('n', '[h', function()
             if vim.wo.diff then return '[c' end
-            vim.schedule(function() gs.prev_hunk() end)
+            vim.schedule(function() gs.nav_hunk('prev') end)
             return '<Ignore>'
         end, { expr = true })
 
@@ -68,7 +69,10 @@ require('gitsigns').setup {
         map('v', '<leader>hs', function() gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
         map('v', '<leader>hr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
         map('n', '<leader>hS', gs.stage_buffer)
-        map('n', '<leader>hu', gs.undo_stage_hunk)
+        -- undo_stage_hunk is deprecated: stage_hunk now toggles, so calling it on a
+        --  staged hunk unstages it. Note this is position-based rather than a pop of
+        --  the last stage operation, which is what undo_stage_hunk did.
+        map('n', '<leader>hu', gs.stage_hunk)
         map('n', '<leader>hR', gs.reset_buffer)
         map('n', '<leader>hp', gs.preview_hunk)
         map('n', '<leader>hb', function() gs.blame_line { full = true } end)
@@ -79,11 +83,21 @@ require('gitsigns').setup {
 
         -- Text object
         map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-
-        -- Fix diff line color
-        vim.api.nvim_set_hl(0, 'GitSignsChange', { link = 'Function' })
-
-        -- Always show the sign column
-        vim.o.signcolumn = "yes"
     end
 }
+
+-- Always show the sign column. Global, so it does not belong in on_attach (which runs
+--  once per attached buffer).
+vim.opt.signcolumn = "yes"
+
+-- Fix diff line color. Also hoisted out of on_attach, and re-applied on ColorScheme
+--  because loading a colorscheme clears every highlight group.
+local function gitsigns_hl()
+    vim.api.nvim_set_hl(0, 'GitSignsChange', { link = 'Function' })
+end
+vim.api.nvim_create_autocmd('ColorScheme', {
+    desc = 'Keep GitSignsChange linked to Function across colorscheme changes',
+    group = vim.api.nvim_create_augroup('gitsigns-hl', { clear = true }),
+    callback = gitsigns_hl,
+})
+gitsigns_hl()

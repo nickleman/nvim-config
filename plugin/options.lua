@@ -44,15 +44,27 @@ vim.o.cursorline = true
 vim.o.cursorcolumn = true
 
 -- Set colorscheme
-vim.cmd.termguicolors = true
+vim.o.termguicolors = true
 -- vim.cmd [[colorscheme onedark]]
 -- vim.cmd.colorscheme "jellybeans"
--- Change the SignColumn color though
-vim.api.nvim_set_hl(0, 'SignColumn', { link = 'LineNr' })
+-- Change the SignColumn color though.
+--  Re-applied on ColorScheme: loading a colorscheme clears all highlight groups, so
+--  a one-shot nvim_set_hl here would be discarded by the next :colorscheme.
+local function sign_column_hl()
+    vim.api.nvim_set_hl(0, 'SignColumn', { link = 'LineNr' })
+end
+vim.api.nvim_create_autocmd('ColorScheme', {
+    desc = 'Keep SignColumn linked to LineNr across colorscheme changes',
+    group = vim.api.nvim_create_augroup('signcolumn-hl', { clear = true }),
+    callback = sign_column_hl,
+})
+sign_column_hl()
 
 -- Have vim wrap on words not characters
-vim.wo.wrap = true
-vim.wo.linebreak = true
+--  NOTE: vim.opt, not vim.wo -- vim.wo would only set the startup window's local
+--  value, leaving every new split to fall back to the global default.
+vim.opt.wrap = true
+vim.opt.linebreak = true
 
 -- Minimal number of screen lines to keep above and below the cursor
 vim.opt.scrolloff = 10
@@ -79,7 +91,16 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 --  misspelled word.
 --  ]s and [s move to next and previous misspelled words.
 vim.opt.spelllang = 'en_us'
-vim.opt.spell = true
+--  Enabled per-filetype rather than globally: a global 'spell' flags identifiers,
+--  JSON keys, log output and terminal buffers as misspellings.
+vim.api.nvim_create_autocmd('FileType', {
+    desc = 'Enable spellcheck for prose filetypes',
+    group = vim.api.nvim_create_augroup('prose-spell', { clear = true }),
+    pattern = { 'markdown', 'gitcommit', 'text', 'rst', 'tex', 'plaintex', 'mail' },
+    callback = function()
+        vim.opt_local.spell = true
+    end,
+})
 
 -- Set the default clipboard to the system clipboard
 vim.opt.clipboard = "unnamedplus"

@@ -4,7 +4,10 @@ local fold_ranges = {}     -- { [bufnr] = { { start_line = <1 based>, end_line =
 local fold_ranges_map = {} -- { [bufnr] = { [start_line] = { start_line = <1 based>, end_line = <1 based> }, }, }
 local current_fold = nil   -- { start_line = <1 based>, end_line = <1 based> }
 
-function M.update_ranges(bufnr)
+local pending = {} -- { [bufnr] = timer }, debounce for update_ranges
+
+local function request_ranges(bufnr)
+    if not vim.api.nvim_buf_is_valid(bufnr) then return end
     local client = vim.lsp.get_clients({ bufnr = bufnr, method = "textDocument/foldingRange" })[1]
     if not client then return end
 
@@ -40,6 +43,20 @@ function M.update_ranges(bufnr)
     end)
 end
 
+--- Debounced entry point. This is wired to TextChanged, so calling straight through
+--- would issue one textDocument/foldingRange request per keystroke. The changedtick
+--- guard in request_ranges() discards stale *responses*, but the requests were still
+--- being sent; this collapses a burst of edits into a single request.
+function M.update_ranges(bufnr)
+    if pending[bufnr] then
+        pending[bufnr]:stop()
+    end
+    pending[bufnr] = vim.defer_fn(function()
+        pending[bufnr] = nil
+        request_ranges(bufnr)
+    end, 200)
+end
+
 function M.update_current_fold(row, bufnr)
     local ranges = fold_ranges[bufnr]
     if not ranges then return nil end
@@ -59,6 +76,10 @@ function M.update_current_fold(row, bufnr)
 end
 
 function M.clear(bufnr)
+    if pending[bufnr] then
+        pending[bufnr]:stop()
+        pending[bufnr] = nil
+    end
     fold_ranges[bufnr] = nil
     fold_ranges_map[bufnr] = nil
 end

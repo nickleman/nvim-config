@@ -28,7 +28,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         -- Jump to the definition of the word under your cursor.
         --  This is where a variable was first declared, or where a function is defined, etc.
-        --  To jump back, press <C-t>.
+        --  To jump back, press <C-o>. (<C-t>, the tag-stack pop, is mapped to
+        --  Neotree toggle in custom/neo-tree.lua.)
         map('gd', vim.lsp.buf.definition, '[g]oto [d]efinition')
 
         -- Jump to the implementation of the word under your cursor.
@@ -80,120 +81,79 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
--- LSP servers and clients are able to communicate to each other what features they support.
---  By default, Neovim doesn't support everything that is in the LSP specification.
---  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
---  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+-- Per-server configuration lives in `after/lsp/<server>.lua`. Neovim collects every
+--  `lsp/<name>.lua` on the runtimepath and merges them in rtp order, so those files
+--  layer cleanly on top of the defaults nvim-lspconfig ships. See `:help vim.lsp.config`.
 --
---  Add any additional override configuration in the following tables. Available keys are:
+--  Available keys are:
 --  - cmd (table): Override the default command used to start the server
 --  - filetypes (table): Override the default list of associated filetypes for the server
 --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 --  - settings (table): Override the default settings passed when initializing the server.
 --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-local modern_servers = {
-    'clangd',
-    'dockerls', 'docker_compose_language_service',
-    'emmet_language_server',
-    'html', 'htmx',
-    'jinja_lsp', 'jsonls',
-    'lua_ls',
-    'marksman',
-    'ruff',
-    'tailwindcss', 'ty',
-}
-local servers = {
-    -- pyright = {},
-    -- jedi_language_server = {},
-    -- Some languages (like typescript) have entire language plugins that can be useful:
-    --    https://github.com/pmizio/typescript-tools.nvim
-    --
-    -- But for many setups, the LSP (`tsserver`) will work just fine
-    -- tsserver = {},
-    --
-    -- lua_ls = {
-    --     -- cmd = {...},
-    --     -- filetypes = { ...},
-    --     -- capabilities = {},
-    --     -- Sets the "workspace" to the directory where any of these files is found.
-    --     -- Files that share a root directory will reuse the LSP server connection.
-    --     -- Nested lists indicate equal priority, see |vim.lsp.Config|.
-    --     root_markers = { { '.luarc.json', '.luarc.jsonc' }, '.git' },
-    --     settings = {
-    --         Lua = {
-    --             completion = {
-    --                 callSnippet = 'Replace',
-    --             },
-    --             -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-    --             diagnostics = {
-    --                 disable = { 'missing-fields' },
-    --                 -- globals = { "vim" },
-    --             },
-    --         },
-    --     },
-    -- },
-    -- tailwindcss = {
-    --     settings = {
-    --         emmetCompletions = true
-    --     },
-    --     capabilities = capabilities,
-    --     init_options = {
-    --         userLanguages = { jinja = "html" }
-    --     },
-    --     filetypes = { "html", "jinja", "htmldjango", "html.jinja", "jinja.html" }
-    -- },
-    -- html = {
-    --     init_options = {
-    --         userLanguages = { jinja = "html" }
-    --     },
-    --     filetypes = { "html", "templ", "htmldjango", "jinja", "jinja.html", "html.jinja" }
-    -- },
-    -- emmet_language_server = {
-    --     filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "jinja", "htmldjango", "html.jinja", "jinja.html" },
-    --     -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
-    --     -- **Note:** only the options listed in the table are supported.
-    --     init_options = {
-    --         ---@type table<string, string>
-    --         includeLanguages = {
-    --             jinja = "html",
-    --             htmldjango = "html"
-    --         },
-    --     },
-    -- },
-}
 
--- Ensure the servers and tools above are installed
+-- Diagnostic display. `virtual_lines` is the built-in replacement for lsp_lines.nvim
+--  (Neovim 0.11+). virtual_text is turned off because leaving both on renders every
+--  diagnostic twice -- which is what the old lsp_lines setup was doing.
+--  If the always-on multiline output is too noisy, `virtual_lines = { current_line =
+--  true }` limits it to the line the cursor is on.
+vim.diagnostic.config({
+    virtual_lines = true,
+    virtual_text = false,
+    underline = true,
+    severity_sort = true,
+})
+
+-- LSP servers and clients are able to communicate to each other what features they support.
+--  By default, Neovim doesn't support everything that is in the LSP specification.
+--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
+--  The '*' config applies to every server, so this is broadcast once here rather
+--  than repeated per server.
+vim.lsp.config('*', {
+    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+})
+
+-- NOTE: `mason.setup()` is driven by `opts` in custom/plugins/lsp-config.lua. It is a
+--  dependency of nvim-lspconfig, so lazy configures it before this file runs.
+--
 --  To check the current status of installed tools and/or manually install
 --  other tools, you can run
 --    :Mason
 --
 --  You can press `g?` for help in this menu.
-require('mason').setup()
 
--- You can add other tools here that you want Mason to install
--- for you, so that they are available from within Neovim.
-local ensure_installed = vim.tbl_keys(servers or {})
-vim.list_extend(ensure_installed, modern_servers or {})
---   'stylua', -- Used to format Lua code
--- })
-require('mason-tool-installer').setup { ensure_installed = ensure_installed }
--- vim.lsp.config['pytest_lsp']
-vim.lsp.enable('pytest_lsp')
+-- Language servers. These are lspconfig names, matching the `after/lsp/*.lua`
+--  filenames. `automatic_enable` runs `vim.lsp.enable()` for everything Mason has
+--  installed, so there is no separate enable list to keep in sync.
 require('mason-lspconfig').setup {
-    handlers = {
-        function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            -- require('lspconfig')[server_name].setup(server)
-            vim.lsp.config(server_name, server)
-            vim.lsp.enable(server_name)
-        end,
+    ensure_installed = {
+        'clangd',
+        'dockerls', 'docker_compose_language_service',
+        'emmet_language_server',
+        'html', 'htmx',
+        'jinja_lsp', 'jsonls',
+        'lua_ls',
+        'marksman',
+        'ruff',
+        'tailwindcss', 'ty',
+    },
+    automatic_enable = {
+        -- stylua is installed as a formatter, but nvim-lspconfig also ships an
+        -- `lsp/stylua.lua` (`stylua --lsp`). Enabling it would put a second
+        -- formatting-capable client on every Lua buffer, so `vim.lsp.buf.format()`
+        -- would prompt for which client to use.
+        exclude = { 'stylua' },
     },
 }
+
+-- Everything that isn't a language server: formatters, linters, debug adapters.
+--  NOTE: these are Mason *package* names, not lspconfig server names.
+require('mason-tool-installer').setup {
+    ensure_installed = {
+        'debugpy', -- Python debug adapter, used by nvim-dap-python
+        'stylua',  -- Used to format Lua code
+    },
+}
+
+-- Not a Mason package (self-managed in ~/.local/bin), so enable it by hand.
+vim.lsp.enable('pytest_lsp')

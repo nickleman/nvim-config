@@ -10,8 +10,7 @@ return {
     },
     {
         'windwp/nvim-ts-autotag',
-        config = function()
-            require('nvim-ts-autotag').setup()
-        end
+        -- setup() is deprecated in favor of the declarative opts table.
+        opts = {},
     },
 }

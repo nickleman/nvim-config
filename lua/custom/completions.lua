@@ -6,7 +6,7 @@ lspkind.init({})
 
 -- See `:help cmp`
 local has_words_before = function()
-    unpack = unpack or table.unpack
+    local unpack = unpack or table.unpack
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and
         vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -103,7 +103,10 @@ cmp.setup({
 })
 
 -- Setup vim-dadbod
-cmp.setup.filetype({ "sql", "mysql", "plsql", "javascript" }, {
+--  NOTE: this *replaces* the global source list for these filetypes, so keep it to
+--  filetypes that are actually database buffers. 'javascript' is deliberately absent:
+--  including it would drop nvim_lsp/copilot/luasnip/path in every JS file.
+cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
     sources = {
         { name = "vim-dadbod-completion" },
         { name = "buffer" },

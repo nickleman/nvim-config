@@ -3,7 +3,16 @@ vim.opt.foldlevelstart = 99
 
 local fold_util = require("utils.code_folds")
 
-vim.keymap.set("n", "<CR>", "za", { noremap = true, silent = true })
+-- <CR> toggles folds, but only where <CR> has no other meaning. In quickfix it jumps
+--  to the entry, in help it follows a tag, and in plugin list buffers it selects --
+--  so anything with a non-empty 'buftype' falls through to a real <CR>. Likewise when
+--  the cursor is not inside a fold, so pressing Enter in an unfolded file still moves
+--  down a line instead of erroring with E490.
+vim.keymap.set("n", "<CR>", function()
+    if vim.bo.buftype ~= "" then return "<CR>" end
+    if vim.fn.foldlevel(".") == 0 then return "<CR>" end
+    return "za"
+end, { expr = true, noremap = true, silent = true })
 vim.keymap.set("n", "[[", fold_util.goto_previous_fold, { noremap = true, silent = true })
 vim.keymap.set("n", "]]", "zj", { noremap = true, silent = true })
 
@@ -31,21 +40,6 @@ vim.api.nvim_create_autocmd({ "BufUnload", "BufWipeout" }, {
     end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "qf",
-    callback = function(args)
-        -- 1. Forcefully disable folding mechanics inside quickfix
-        vim.opt_local.foldenable = false
-        vim.opt_local.foldmethod = "manual"
-
-        -- 2. Safely remove any custom folding or accidental <CR> overrides
-        pcall(vim.keymap.del, "n", "<CR>", { buffer = args.buf })
-
-        -- 3. Force <CR> to execute the native built-in quickfix jump command
-        vim.keymap.set("n", "<CR>", "<CR>", {
-            buffer = args.buf,
-            silent = true,
-            noremap = true
-        })
-    end,
-})
+-- NOTE: the quickfix FileType workaround that used to live here (deleting and
+--  re-adding a buffer-local <CR>) is no longer needed -- the buftype guard on the
+--  <CR> mapping above covers quickfix, help, and every other special buffer.

@@ -9,6 +9,13 @@ require('nvim-treesitter').install(languages)
 -- Use the bash parser for zsh files (there is no dedicated zsh parser)
 vim.treesitter.language.register('bash', 'zsh')
 
+-- Jinja templates. The filetype is the dotted 'html.jinja' (see init.lua), which is
+--  not itself a parser name, so without this registration get_lang() returns nil and
+--  treesitter never starts on templates at all.
+--  'jinja' is the *outer* parser: it handles the {{ }} / {% %} blocks and, via
+--  after/queries/jinja/injections.scm, injects 'html' into the text between them.
+vim.treesitter.language.register('jinja', { 'html.jinja', 'jinja.html', 'jinja' })
+
 vim.api.nvim_create_autocmd('FileType', {
     group = vim.api.nvim_create_augroup('treesitter.setup', {}),
     callback = function(args)
@@ -24,10 +31,11 @@ vim.api.nvim_create_autocmd('FileType', {
         end
 
         -- replicate `fold = { enable = true }`
+        --  NOTE: 'foldlevelstart' is global-only, so there is no window-local value to
+        --  set here. It is set once in custom/nvim-origami.lua instead.
         vim.opt_local.foldmethod = 'expr'
         vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
         vim.opt_local.foldlevel = 99
-        vim.opt_local.foldlevelstart = 99
 
         -- replicate `highlight = { enable = true }`
         vim.treesitter.start(buf, language)

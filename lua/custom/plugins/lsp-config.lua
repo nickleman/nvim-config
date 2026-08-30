@@ -27,12 +27,14 @@ return {
     dependencies = {
         -- Automatically install LSPs and related tools to stdpath for Neovim
         {
-            'williamboman/mason.nvim',
+            'mason-org/mason.nvim', -- was williamboman/mason.nvim, now archived
             opts = {
                 PATH = "prepend", -- "skip" seems to cause spawning errors.
             },
         },
-        { 'williamboman/mason-lspconfig.nvim', opts = { automatic_installation = true, }, },
+        -- NOTE: configured in custom/lsp-config.lua, not here, so that
+        -- `ensure_installed` sits next to the rest of the LSP setup.
+        'mason-org/mason-lspconfig.nvim',
         'WhoIsSethDaniel/mason-tool-installer.nvim',
 
         -- Useful status updates for LSP.
@@ -53,12 +55,8 @@ return {
             ft = "lua",
             opts = {}
         },
-        {
-            "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-            config = function()
-                require("lsp_lines").setup()
-            end,
-        },
+        -- NOTE: lsp_lines.nvim used to live here. Neovim 0.11+ has this built in as
+        --  the `virtual_lines` diagnostic handler, configured in custom/lsp-config.lua.
     },
     config = function()
         require("custom.lsp-config")
