@@ -44,7 +44,7 @@ cmp.setup({
         --  This will auto-import if your LSP supports it.
         --  This will expand snippets if the LSP sent a snippet.
         ['<C-y>'] = cmp.mapping.confirm { select = true },
-        ['<CR>'] = cmp.mapping.confirm({ select = false }),         -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 
         -- Select the [n]ext item
         ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -95,8 +95,8 @@ cmp.setup({
         { name = "copilot", group_index = 2 },
         -- Other Sources
         { name = 'nvim_lsp' },
-        { name = 'luasnip' },         -- For luasnip users.
-        { name = 'path' },            -- For luasnip users.
+        { name = 'luasnip' }, -- For luasnip users.
+        { name = 'path' },    -- For luasnip users.
     }, {
         { name = 'buffer' },
     })
