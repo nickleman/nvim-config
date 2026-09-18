@@ -41,7 +41,7 @@ vim.o.wildignore = '*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xls
 vim.o.cursorline = true
 
 -- Highlight cursor line underneath the cursor vertically.
-vim.o.cursorcolumn = true
+-- vim.o.cursorcolumn = true
 
 -- Set colorscheme
 vim.o.termguicolors = true
