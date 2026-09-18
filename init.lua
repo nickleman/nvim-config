@@ -38,3 +38,7 @@ require("lazy").setup({ import = "custom/plugins" }, {
         notify = false,
     },
 })
+
+-- Disable the neovide cursor animation
+vim.g.neovide_cursor_animation_length = 0
+
