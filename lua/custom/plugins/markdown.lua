@@ -1,14 +1,14 @@
 return {
     {
-        "selimacerbas/markdown-preview.nvim",
+        "selimacerbas/mdkite.nvim",
         lazy = true,
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
         ft = { "markdown" },
         dependencies = {
-            "selimacerbas/live-server.nvim"
+            "selimacerbas/kitehost.nvim"
         },
         config = function()
-            require("markdown_preview").setup({
+            require("mdkite").setup({
                 -- All optional config settings (sane defaults shown):
                 instance_mode = "takeover", -- "takeover" (one tab) or "multi" (tab per instance)
                 port = 0,           -- 0 = auto-assign
