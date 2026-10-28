@@ -16,8 +16,16 @@
 
 ---@type vim.lsp.Config
 return {
-  name = 'jinja_lsp',
-  cmd = { 'jinja-lsp' },
-  filetypes = { 'jinja', 'html.jinja', 'jinja.html', 'python' },
-  root_markers = { '.git', 'pyproject.toml' },
+    name = 'jinja_lsp',
+    cmd = { 'jinja-lsp' },
+    filetypes = { 'jinja', 'html.jinja', 'jinja.html', 'python' },
+    root_markers = { '.git', 'pyproject.toml' },
+    init_options = {
+        templates = "app/templates",
+        backend = "app",
+        lang = "python"
+    },
+    templates = "app/templates",
+    backend = "app",
+    lang = "python",
 }
